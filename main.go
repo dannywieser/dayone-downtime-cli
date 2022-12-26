@@ -1,6 +1,6 @@
 package main
 
-import "dayone-yir/cmd"
+import "dod/cmd"
 
 func main() {
 	cmd.Execute()
