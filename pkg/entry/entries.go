@@ -10,6 +10,16 @@ import (
 )
 
 // Functions for working with multiple Day One Entries
+func GetEntriesByTag(entries []model.Entry, tag string) []model.Entry {
+	filteredEntries := []model.Entry{}
+	for _, entry := range entries {
+		if entryHasTag(entry, tag) {
+			filteredEntries = append(filteredEntries, entry)
+		}
+	}
+
+	return filteredEntries
+}
 
 func GetEntriesByTagAndYear(entries []model.Entry, tag string, year int) []model.Entry {
 	filteredEntries := []model.Entry{}

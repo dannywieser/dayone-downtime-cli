@@ -3,9 +3,10 @@ package cmd
 import (
 	"dod/pkg/config"
 	"dod/pkg/entry"
+	"dod/pkg/review"
 	"dod/pkg/utils"
-	util "dod/pkg/utils"
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -41,11 +42,12 @@ var yirCmd = &cobra.Command{
 		entries, err := entry.RetrieveEntriesFromJson(Journal, *cfg)
 		cobra.CheckErr(err)
 
-		fmt.Print(util.YearInReviewTitle(Year))
+		//fmt.Print(util.YearInReviewTitle(Year))
 
-		for _, typeTag := range cfg.TypeTags {
-			entries := entry.GetEntriesByTagAndYear(entries, typeTag, Year)
-			fmt.Print(utils.TypeTitle(typeTag, len(entries)))
-		}
+		reviewString := review.CreateReviewBody(entries, *cfg, Year)
+		fmt.Println(reviewString)
+
+		err = entry.CreateEntry(Journal, strings.Join(cfg.TypeTags, " "), reviewString)
+		cobra.CheckErr(err)
 	},
 }
