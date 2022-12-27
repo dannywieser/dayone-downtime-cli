@@ -1,7 +1,11 @@
 package model
 
+import "time"
+
 type Entry struct {
-	Text string
+	Text         string
+	Tags         []string
+	CreationDate time.Time
 }
 
 type Entries struct {

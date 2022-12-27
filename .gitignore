@@ -17,3 +17,6 @@ vendor/
 
 # day one exports
 exports
+
+# unzip output folder
+output
