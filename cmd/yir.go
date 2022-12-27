@@ -1,8 +1,9 @@
 package cmd
 
 import (
-	"dod/display"
-	"dod/export"
+	"dod/pkg/entry"
+	"dod/pkg/export"
+	util "dod/pkg/utils"
 	"fmt"
 	"strings"
 
@@ -30,7 +31,7 @@ var yirCmd = &cobra.Command{
 	Short: "Year in Review",
 	Run: func(cmd *cobra.Command, args []string) {
 		var sb strings.Builder
-		sb.WriteString(display.YearInReviewTitle(Year))
+		sb.WriteString(util.YearInReviewTitle(Year))
 		fmt.Print(sb.String())
 
 		// extract and process export
@@ -41,6 +42,6 @@ var yirCmd = &cobra.Command{
 		entries, err := export.RetrieveEntriesFromJson(Journal)
 		cobra.CheckErr(err)
 
-		export.GetEntriesByTagAndYear(entries, "books", Year)
+		entry.GetEntriesByTagAndYear(entries, "books", Year)
 	},
 }

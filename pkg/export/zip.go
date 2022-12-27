@@ -10,7 +10,6 @@ import (
 const exportWorkingDir = "output"
 
 func Unzip(archivePath string) error {
-
 	archive, err := zip.OpenReader(archivePath)
 	if err != nil {
 		return err

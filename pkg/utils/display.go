@@ -1,4 +1,4 @@
-package display
+package util
 
 import (
 	"bytes"
