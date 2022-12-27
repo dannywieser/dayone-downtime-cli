@@ -1,15 +1,14 @@
-package export
+package utils
 
 import (
 	"archive/zip"
+	"dod/pkg/model"
 	"io"
 	"os"
 	"path/filepath"
 )
 
-const exportWorkingDir = "output"
-
-func Unzip(archivePath string) error {
+func Unzip(archivePath string, cfg model.Config) error {
 	archive, err := zip.OpenReader(archivePath)
 	if err != nil {
 		return err
@@ -17,7 +16,7 @@ func Unzip(archivePath string) error {
 	defer archive.Close()
 
 	for _, archiveFile := range archive.File {
-		err := processArchiveFile(archiveFile)
+		err := processArchiveFile(archiveFile, cfg)
 		if err != nil {
 			return err
 		}
@@ -25,8 +24,8 @@ func Unzip(archivePath string) error {
 	return nil
 }
 
-func processArchiveFile(archiveFile *zip.File) error {
-	filePath := filepath.Join(exportWorkingDir, archiveFile.Name)
+func processArchiveFile(archiveFile *zip.File, cfg model.Config) error {
+	filePath := filepath.Join(cfg.TmpDir, archiveFile.Name)
 
 	if archiveFile.FileInfo().IsDir() {
 		os.MkdirAll(filePath, os.ModePerm)

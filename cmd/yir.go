@@ -1,11 +1,11 @@
 package cmd
 
 import (
+	"dod/pkg/config"
 	"dod/pkg/entry"
-	"dod/pkg/export"
+	"dod/pkg/utils"
 	util "dod/pkg/utils"
 	"fmt"
-	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -30,18 +30,22 @@ var yirCmd = &cobra.Command{
 	Use:   "yir",
 	Short: "Year in Review",
 	Run: func(cmd *cobra.Command, args []string) {
-		var sb strings.Builder
-		sb.WriteString(util.YearInReviewTitle(Year))
-		fmt.Print(sb.String())
+		cfg, err := config.LoadConfig()
+		cobra.CheckErr(err)
 
 		// extract and process export
-		fmt.Println("Please wait, processing export file")
-		err := export.Unzip(ExportFile)
+		fmt.Println("Processing...")
+		err = utils.Unzip(ExportFile, *cfg)
 		cobra.CheckErr(err)
 
-		entries, err := export.RetrieveEntriesFromJson(Journal)
+		entries, err := entry.RetrieveEntriesFromJson(Journal, *cfg)
 		cobra.CheckErr(err)
 
-		entry.GetEntriesByTagAndYear(entries, "books", Year)
+		fmt.Print(util.YearInReviewTitle(Year))
+
+		for _, typeTag := range cfg.TypeTags {
+			entries := entry.GetEntriesByTagAndYear(entries, typeTag, Year)
+			fmt.Print(utils.TypeTitle(typeTag, len(entries)))
+		}
 	},
 }

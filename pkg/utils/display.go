@@ -1,4 +1,4 @@
-package util
+package utils
 
 import (
 	"bytes"
@@ -27,5 +27,17 @@ func YearInReviewTitle(year int) string {
 	yearDisp.Fprintf(buf, "       🥳 %v 🥳 : Year In Review       \n", year)
 
 	defer color.Unset()
+	return buf.String()
+}
+
+func TypeTitle(typeTag string, count int) string {
+	buf := bytes.NewBufferString("")
+
+	typeDisp := color.New(color.FgHiCyan)
+	typeDisp.Fprintf(buf, " -- %-20s", typeTag)
+
+	countDisp := color.New(color.FgHiWhite)
+	countDisp.Fprintf(buf, "  %15d\n", count)
+
 	return buf.String()
 }
