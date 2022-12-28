@@ -42,8 +42,6 @@ var yirCmd = &cobra.Command{
 		entries, err := entry.RetrieveEntriesFromJson(Journal, *cfg)
 		cobra.CheckErr(err)
 
-		//fmt.Print(util.YearInReviewTitle(Year))
-
 		reviewString := review.CreateReviewBody(entries, *cfg, Year)
 		fmt.Println(reviewString)
 

@@ -7,4 +7,5 @@ type Config struct {
 	GenreTags       []string
 	FavoriteTag     string
 	DidNotFinishTag string
+	Ratings         []string
 }

@@ -20,6 +20,3 @@ exports
 
 # unzip output folder
 output
-
-# config.json should not be commited
-config.json

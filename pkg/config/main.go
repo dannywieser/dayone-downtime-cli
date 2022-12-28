@@ -21,3 +21,33 @@ func LoadConfig() (*model.Config, error) {
 	}
 	return &config, nil
 }
+
+func TagExistsInConfig(checkTag string, cfg model.Config) bool {
+	for _, typeTag := range cfg.TypeTags {
+		if checkTag == typeTag {
+			return true
+		}
+	}
+
+	for _, genreTag := range cfg.GenreTags {
+		if checkTag == genreTag {
+			return true
+		}
+	}
+
+	for _, ratingTag := range cfg.Ratings {
+		if checkTag == ratingTag {
+			return true
+		}
+	}
+
+	if checkTag == cfg.FavoriteTag {
+		return true
+	}
+
+	if checkTag == cfg.DidNotFinishTag {
+		return true
+	}
+
+	return false
+}
