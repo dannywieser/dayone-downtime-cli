@@ -71,3 +71,12 @@ func CreateReviewBody(entries []model.Entry, cfg model.Config, year int) string 
 	}
 	return sb.String()
 }
+
+func CreateCliReport(entries []model.Entry, cfg model.Config, year int) string {
+	var sb strings.Builder
+	for _, typeTag := range cfg.TypeTags {
+		entries := entry.GetEntriesByTagAndYear(entries, typeTag, year)
+		sb.WriteString(fmt.Sprintf("  -- %s : %v \n", typeTag, len(entries)))
+	}
+	return sb.String()
+}

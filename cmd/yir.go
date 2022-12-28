@@ -35,7 +35,9 @@ var yirCmd = &cobra.Command{
 		cobra.CheckErr(err)
 
 		// extract and process export
-		fmt.Println("Processing...")
+		fmt.Print(utils.YearInReviewTitle(Year))
+		fmt.Printf("  - processing `%s`...\n", ExportFile)
+
 		err = utils.Unzip(ExportFile, *cfg)
 		cobra.CheckErr(err)
 
@@ -43,9 +45,9 @@ var yirCmd = &cobra.Command{
 		cobra.CheckErr(err)
 
 		reviewString := review.CreateReviewBody(entries, *cfg, Year)
-		fmt.Println(reviewString)
-
 		err = entry.CreateEntry(Journal, strings.Join(cfg.ReviewEntryTags, " "), reviewString)
 		cobra.CheckErr(err)
+
+		fmt.Print(review.CreateCliReport(entries, *cfg, Year))
 	},
 }

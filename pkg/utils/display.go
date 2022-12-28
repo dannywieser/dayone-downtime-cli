@@ -24,7 +24,7 @@ func YearInReviewTitle(year int) string {
 	buf := bytes.NewBufferString("")
 
 	yearDisp := color.New(color.FgHiGreen).Add(color.Underline)
-	yearDisp.Fprintf(buf, "       🥳 %v 🥳 : Year In Review       \n", year)
+	yearDisp.Fprintf(buf, "             🥳 %v 🥳 : Year In Review             \n", year)
 
 	defer color.Unset()
 	return buf.String()

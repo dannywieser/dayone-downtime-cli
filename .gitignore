@@ -20,3 +20,6 @@ exports
 
 # unzip output folder
 output
+
+# generated binary
+dod
