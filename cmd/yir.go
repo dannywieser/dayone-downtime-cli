@@ -45,7 +45,7 @@ var yirCmd = &cobra.Command{
 		reviewString := review.CreateReviewBody(entries, *cfg, Year)
 		fmt.Println(reviewString)
 
-		err = entry.CreateEntry(Journal, strings.Join(cfg.TypeTags, " "), reviewString)
+		err = entry.CreateEntry(Journal, strings.Join(cfg.ReviewEntryTags, " "), reviewString)
 		cobra.CheckErr(err)
 	},
 }
