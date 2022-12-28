@@ -16,15 +16,15 @@ That's where this tool comes in.
 
 - Unfortunately, there is no API for Day One, so this tool relies on a `JSON` format export from Dayone to retrieve it's information.
 - The tool relies on entries being well-tagged. I tag my entries based on:
-  - `type`: books, videogames, movies, etc
+  - `type`: `#books`, `#videogames`, `#movies`, etc
   - `genre`: Theres no limit to how many genres, but they should be consistent in their usage
-  - `rating`: #1star - #5stars. Storing rating as a tag allows for easier filtering and locating entries with the different ratings
+  - `rating`: `#1star` - `#5stars`. Storing rating as a tag allows for easier filtering and locating entries with the different ratings
   - `favorite`: If I really loved something, I tag it as such so it's easier to find later
   - `dnf` (did not finish): things so bad I just had to give up - what were they?
 
-<WIP>
-
 ## TODO
 
+- [ ] Finish documenting everything in this README
 - [ ] Process ratings (1-5 star) and report on average rating, top rated, bottom rated, etc
-- [ ]
+- [ ] Page counts - total pages read during the year
+- [ ] Audiobook total listening time
