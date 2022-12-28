@@ -38,8 +38,8 @@ func GetEntriesByTagAndYear(entries []model.Entry, tag string, year int) []model
 //   - Build a file name based on on `workingdir/JournalName.json`
 //   - Retrieve all Day One Entries from the export
 //   - Return the nested entries array to the caller
-func RetrieveEntriesFromJson(journalName string, cfg model.Config) ([]model.Entry, error) {
-	journalExport := filepath.Join(cfg.TmpDir, fmt.Sprintf("%s.json", journalName))
+func RetrieveEntriesFromJson(cfg model.Config) ([]model.Entry, error) {
+	journalExport := filepath.Join(cfg.TmpDir, fmt.Sprintf("%s.json", cfg.TargetJournal))
 	jsonFile, err := os.Open(journalExport)
 	if err != nil {
 		return nil, err

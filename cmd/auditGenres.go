@@ -11,11 +11,6 @@ import (
 
 func init() {
 	rootCmd.AddCommand(auditGenreCmd)
-	// TODO: how to not have this be a global var?
-	auditGenreCmd.Flags().StringVarP(&ExportFile, "export", "e", "", "Path to export file (JSON zip format)")
-	auditGenreCmd.MarkFlagRequired("export")
-	auditGenreCmd.Flags().StringVarP(&Journal, "journal", "j", "", "Journal Name")
-	auditGenreCmd.MarkFlagRequired("journal")
 }
 
 var auditGenreCmd = &cobra.Command{
@@ -27,10 +22,10 @@ var auditGenreCmd = &cobra.Command{
 
 		// extract and process export
 		fmt.Println("Processing...")
-		err = utils.Unzip(ExportFile, *cfg)
+		err = utils.Unzip(*cfg)
 		cobra.CheckErr(err)
 
-		entries, err := entry.RetrieveEntriesFromJson(Journal, *cfg)
+		entries, err := entry.RetrieveEntriesFromJson(*cfg)
 		cobra.CheckErr(err)
 		checkTags := entry.AuditGenreTags(entries, *cfg)
 

@@ -1,4 +1,6 @@
 {
+    "exportFile": "./exports/12-28-2022_7-13-AM.zip",
+    "targetJournal": "Downtime",
     "tmpDir": "output",
     "typeTags": [ 
         "books",

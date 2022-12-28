@@ -1,6 +1,8 @@
 package model
 
 type Config struct {
+	ExportFile      string
+	TargetJournal   string
 	TmpDir          string
 	TypeTags        []string
 	ReviewEntryTags []string

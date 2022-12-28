@@ -6,25 +6,14 @@ import (
 	"dod/pkg/review"
 	"dod/pkg/utils"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/spf13/cobra"
 )
 
-var ExportFile string
-var Year int
-var Journal string
-
 func init() {
 	rootCmd.AddCommand(yirCmd)
-	yirCmd.Flags().StringVarP(&ExportFile, "export", "e", "", "Path to export file (JSON zip format)")
-	yirCmd.MarkFlagRequired("export")
-
-	yirCmd.Flags().IntVarP(&Year, "year", "y", 0, "Year")
-	yirCmd.MarkFlagRequired("year")
-
-	yirCmd.Flags().StringVarP(&Journal, "journal", "j", "", "Journal Name")
-	yirCmd.MarkFlagRequired("journal")
 }
 
 var yirCmd = &cobra.Command{
@@ -34,20 +23,23 @@ var yirCmd = &cobra.Command{
 		cfg, err := config.LoadConfig()
 		cobra.CheckErr(err)
 
+		year, err := strconv.Atoi(args[0])
+		cobra.CheckErr(err)
+
 		// extract and process export
-		fmt.Print(utils.YearInReviewTitle(Year))
-		fmt.Printf("  - processing `%s`...\n", ExportFile)
+		fmt.Print(utils.YearInReviewTitle(year))
+		fmt.Printf("  - processing `%s`...\n", cfg.ExportFile)
 
-		err = utils.Unzip(ExportFile, *cfg)
+		err = utils.Unzip(*cfg)
 		cobra.CheckErr(err)
 
-		entries, err := entry.RetrieveEntriesFromJson(Journal, *cfg)
+		entries, err := entry.RetrieveEntriesFromJson(*cfg)
 		cobra.CheckErr(err)
 
-		reviewString := review.CreateReviewBody(entries, *cfg, Year)
-		err = entry.CreateEntry(Journal, strings.Join(cfg.ReviewEntryTags, " "), reviewString)
+		reviewString := review.CreateReviewBody(entries, *cfg, year)
+		err = entry.CreateEntry(cfg.TargetJournal, strings.Join(cfg.ReviewEntryTags, " "), reviewString)
 		cobra.CheckErr(err)
 
-		fmt.Print(review.CreateCliReport(entries, *cfg, Year))
+		fmt.Print(review.CreateCliReport(entries, *cfg, year))
 	},
 }

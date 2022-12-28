@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 )
 
-func Unzip(archivePath string, cfg model.Config) error {
-	archive, err := zip.OpenReader(archivePath)
+func Unzip(cfg model.Config) error {
+	archive, err := zip.OpenReader(cfg.ExportFile)
 	if err != nil {
 		return err
 	}
